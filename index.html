@@ -51,17 +51,27 @@
   <button onclick="pendekin()">Pendekin</button>
 
   <div id="result"></div>
-
   <script>
-    function pendekin() {
-      const originalUrl = document.getElementById("originalUrl").value;
-      if (!originalUrl) return alert("Masukkan URL dulu bre!");
+  async function pendekin() {
+    const originalUrl = document.getElementById("originalUrl").value;
+    if (!originalUrl) return alert("Masukkan URL dulu bre!");
 
-      // Simulasi hasil (karena belum backend)
-      const shortUrl = "https://shal.ly/" + Math.random().toString(36).substring(2, 8);
+    try {
+      const res = await fetch('/shorten', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: originalUrl })
+      });
+
+      const data = await res.json();
       document.getElementById("result").innerHTML = `
-        Link pendek kamu: <a href="${originalUrl}" target="_blank">${shortUrl}</a>
+        Link pendek kamu: <a href="${data.short}" target="_blank">${data.short}</a>
       `;
+    } catch (err) {
+      console.error(err);
+      alert("Gagal memendekkan link bre!");
     }
   </script>
 </body>
