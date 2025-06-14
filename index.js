@@ -5,8 +5,8 @@ const port = process.env.PORT || 3000;
 
 const links = {};
 
-app.use(express.static(__dirname)); // biar bisa load index.html
-app.use(express.json()); // biar bisa parsing JSON body
+app.use(express.json());
+app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -15,14 +15,14 @@ app.get('/', (req, res) => {
 app.post('/shorten', (req, res) => {
   const id = Math.random().toString(36).substr(2, 5);
   links[id] = req.body.url;
-  const shortUrl = `${req.protocol}://${req.get('host')}/${id}`;
-  res.json({ short: shortUrl });
+  const short = `${req.protocol}://${req.get('host')}/${id}`;
+  res.json({ short });
 });
 
 app.get('/:id', (req, res) => {
   const url = links[req.params.id];
   if (url) return res.redirect(url);
-  res.status(404).send('Link gak ada bre!');
+  res.status(404).send('Link tidak ditemukan');
 });
 
 app.listen(port, () => {
