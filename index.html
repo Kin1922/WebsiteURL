@@ -17,30 +17,25 @@
       margin: 0;
     }
 
-    h1 {
-      margin-bottom: 20px;
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
     }
 
     input {
-      padding: 10px;
       width: 300px;
-      border: none;
-      border-radius: 5px;
-      margin-bottom: 10px;
     }
 
     button {
-      padding: 10px 20px;
-      border: none;
-      background: #7c4dff;
-      color: white;
-      border-radius: 5px;
+      background-color: #7c4dff;
+      color: #fff;
       cursor: pointer;
     }
 
     #result {
       margin-top: 20px;
-      font-size: 18px;
       color: #00e676;
     }
   </style>
@@ -49,29 +44,23 @@
   <h1>Pendekkan URL Kamu</h1>
   <input type="text" id="originalUrl" placeholder="Tempel link asli di sini..." />
   <button onclick="pendekin()">Pendekin</button>
-
   <div id="result"></div>
-  <script>
-  async function pendekin() {
-    const originalUrl = document.getElementById("originalUrl").value;
-    if (!originalUrl) return alert("Masukkan URL dulu bre!");
 
-    try {
+  <script>
+    async function pendekin() {
+      const url = document.getElementById("originalUrl").value;
+      if (!url) return alert("Masukkan URL dulu bre!");
+
       const res = await fetch('/shorten', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url: originalUrl })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
       });
 
       const data = await res.json();
       document.getElementById("result").innerHTML = `
         Link pendek kamu: <a href="${data.short}" target="_blank">${data.short}</a>
       `;
-    } catch (err) {
-      console.error(err);
-      alert("Gagal memendekkan link bre!");
     }
   </script>
 </body>
