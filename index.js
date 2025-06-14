@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
-const crypto = require('crypto');
+-const express = require('express');
+-const app = express();
+-const crypto = require('crypto');
 
-const PORT = process.env.PORT || 3000;
-const BASE_URL = "https://your-app-name.up.railway.app"; // Ganti pakai URL Railway kamu
+-const PORT = process.env.PORT || 3000;
+-const BASE_URL = -"https://your-app-name.up.railway.app"; // Ganti pakai URL Railway kamu
 
 app.use(express.json());
 
