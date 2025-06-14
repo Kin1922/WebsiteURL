@@ -1,6 +1,7 @@
 {
   "name": "shorturl",
   "version": "1.0.0",
+  "description": "A simple URL shortener",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
